@@ -80,7 +80,7 @@ strtolower(string);
           </row>
         </div>
       </section>
-      
+      <sil-footer /> 
   </div>
 </template>
 
@@ -88,6 +88,7 @@ strtolower(string);
 import VueMarkdown from "vue-markdown";
 import Grid from "@sil/grid";
 
+import silFooter from "./components/footer.vue";
 const Row = Grid.row;
 const Column = Grid.column;
 
@@ -96,7 +97,8 @@ export default {
   components: {
     VueMarkdown,
     Column,
-    Row
+    Row,
+    silFooter
   }
 };
 </script>
