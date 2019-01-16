@@ -1,86 +1,139 @@
 <template>
   <div id="app">
-      <section class="container">
-        <div class="content">
-          <h1>Cheatsheet</h1>
-        </div>
-      </section>
-      
-      <div class="container content">
-          <h2>Javascript</h2>      
+    <section class="container">
+      <div class="content">
+        <h1>Cheatsheet</h1>
       </div>
-      
-      <section class="background--yellow">
-        <div class="container content">
-          <row>
-            <column medium="1:2">
-              <vue-markdown>
+    </section>
+
+    <div class="container content">
+      <h2>Javascript</h2>
+    </div>
+
+    <section class="background--yellow">
+      <div class="container content">
+        <row>
+          <column medium="1:2">
+            <vue-markdown>
 #### Custom Properties
 
 Add or read custom properties
-              </vue-markdown>
-            </column>
-            <column medium="1:2">
-             <vue-markdown>
+            </vue-markdown>
+          </column>
+          <column medium="1:2">
+            <vue-markdown>
 **Set**
+
 ```js
 element.style.setProperty(propertyName, value, priority);
 ````
 
 **Get**
+
 ```js
 element.style.getProperty(propertyName);
 ```
 **Remove**
+
 ```js
 element.style.removeProperty(propertyName);
-```   
-         
-          </vue-markdown>
-            </column>
-          </row>
-        </div>
-      </section>
-      
-      
-      
-      <div class="container content">
-          <h2>Misc.</h2>      
+```
+
+            </vue-markdown>
+          </column>
+        </row>
       </div>
-      
-      
-        <section class="background--green">
-        <div class="container content">
-          <row>
-            <column medium="1:2">
-              <vue-markdown>
+    </section>
+
+    <div class="container content">
+      <h2>CSS / SCSS </h2>
+    </div>
+
+    <section class="background--blue">
+      <div class="container content">
+        <row>
+          <column medium="1:2">
+            <vue-markdown>
+#### Flexbox
+            </vue-markdown>
+          </column>
+          <column medium="1:2">
+            <vue-markdown>
+**Align horizontal**
+
+```css
+flex-direction: row;
+```
+
+**Align vertical**
+
+```css
+flex-direction: column;
+```
+
+**Align center**
+
+```css
+justify-content: center;
+align-items: center;
+```
+
+**Align center horizontal**
+
+```css
+justify-content: center;
+```
+
+**Align center vertical**
+
+```css
+align-items: center;
+```
+            </vue-markdown>
+          </column>
+        </row>
+      </div>
+    </section>
+
+    <div class="container content">
+      <h2>Misc.</h2>
+    </div>
+
+    <section class="background--green">
+      <div class="container content">
+        <row>
+          <column medium="1:2">
+            <vue-markdown>
 #### To Lowercase
 
-There are so many ways to make a string lowercase, every language has its own function. 
-              </vue-markdown>
-            </column>
-            <column medium="1:2">
-             <vue-markdown>
+There are so many ways to make a string lowercase, every language has its own function.
+            </vue-markdown>
+          </column>
+          <column medium="1:2">
+            <vue-markdown>
 **SCSS**
+
 ```scss
 to-lower-case($string);
 ````
 
 **JS**
+
 ```js
 toLowerCase(string);
 ```
 **PHP**
+
 ```php
 strtolower(string);
-```   
-         
-          </vue-markdown>
-            </column>
-          </row>
-        </div>
-      </section>
-      <sil-footer /> 
+```
+
+            </vue-markdown>
+          </column>
+        </row>
+      </div>
+    </section>
+    <sil-footer />
   </div>
 </template>
 
@@ -112,5 +165,6 @@ code[class*="language"] {
   border: 1px solid color(Black, 1);
   color: color(White);
   padding: 1rem;
+  overflow: scroll;
 }
 </style>
