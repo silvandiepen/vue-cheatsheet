@@ -2,143 +2,52 @@
   <div id="app">
     <section class="container">
       <div class="content">
-        <h1>Cheatsheet</h1>
+        <h1>cheatSheet</h1>
+        <p>Those thing which you keep looking up and up and never get in your head. I know the website where I can find them, but I just want to have 1 simpel resource for all these recurring little lookups.</p>
       </div>
     </section>
+    <div
+      v-for="(value, key, index) in cheatSheet"
+      :key="index"
+    >
+      <div class="container content">
+        <h3>{{key}}</h3>
+      </div>
 
-    <div class="container content">
-      <h2>Javascript</h2>
+      <section class="cheatsheet__group" :class="key">
+        <div
+          class="container content"
+          v-for="(cheat,index) in value"
+          :key="index"
+        >
+          <row>
+            <column medium="1:2">
+              <div class="cheatsheet__description">
+                <markdown
+                  :source="cheat.content"
+                  meta
+                >
+                  <h5 meta="Title" />
+                  <div meta="Description" />
+                </markdown>
+              </div>
+            </column>
+            <column medium="1:2">
+              <markdown :source="cheat.content" />
+            </column>
+          </row>
+        </div>
+      </section>
     </div>
 
-    <section class="background--yellow">
-      <div class="container content">
-        <row>
-          <column medium="1:2">
-            <vue-markdown>
-#### Custom Properties
-
-Add or read custom properties
-            </vue-markdown>
-          </column>
-          <column medium="1:2">
-            <vue-markdown>
-**Set**
-
-```js
-element.style.setProperty(propertyName, value, priority);
-````
-
-**Get**
-
-```js
-element.style.getProperty(propertyName);
-```
-**Remove**
-
-```js
-element.style.removeProperty(propertyName);
-```
-
-            </vue-markdown>
-          </column>
-        </row>
-      </div>
-    </section>
-
-    <div class="container content">
-      <h2>CSS / SCSS </h2>
-    </div>
-
-    <section class="background--blue">
-      <div class="container content">
-        <row>
-          <column medium="1:2">
-            <vue-markdown>
-#### Flexbox
-            </vue-markdown>
-          </column>
-          <column medium="1:2">
-            <vue-markdown>
-**Align horizontal**
-
-```css
-flex-direction: row;
-```
-
-**Align vertical**
-
-```css
-flex-direction: column;
-```
-
-**Align center**
-
-```css
-justify-content: center;
-align-items: center;
-```
-
-**Align center horizontal**
-
-```css
-justify-content: center;
-```
-
-**Align center vertical**
-
-```css
-align-items: center;
-```
-            </vue-markdown>
-          </column>
-        </row>
-      </div>
-    </section>
-
-    <div class="container content">
-      <h2>Misc.</h2>
-    </div>
-
-    <section class="background--green">
-      <div class="container content">
-        <row>
-          <column medium="1:2">
-            <vue-markdown>
-#### To Lowercase
-
-There are so many ways to make a string lowercase, every language has its own function.
-            </vue-markdown>
-          </column>
-          <column medium="1:2">
-            <vue-markdown>
-**SCSS**
-
-```scss
-to-lower-case($string);
-````
-
-**JS**
-
-```js
-toLowerCase(string);
-```
-**PHP**
-
-```php
-strtolower(string);
-```
-
-            </vue-markdown>
-          </column>
-        </row>
-      </div>
-    </section>
     <sil-footer />
   </div>
 </template>
 
 <script>
-import VueMarkdown from "vue-markdown";
+/* eslint-disable */
+import axios from "axios";
+import Markdown from "./components/markdown.vue";
 import Grid from "@sil/grid";
 
 import silFooter from "./components/footer.vue";
@@ -148,10 +57,70 @@ const Column = Grid.column;
 export default {
   name: "app",
   components: {
-    VueMarkdown,
+    Markdown,
     Column,
     Row,
     silFooter
+  },
+  data() {
+    return {
+      cheatSheet: {
+        css: [],
+        javascript: [],
+        misc: []
+      }
+    };
+  },
+  watch: {
+    /* eslint-disable */
+    cheatSheet: function(val) {
+      // console.log(this.cheatSheet);
+    }
+  },
+  created() {
+    this.getCheats();
+  },
+  methods: {
+    getCheats() {
+      let _this = this;
+      axios
+        .get(
+          "https://gist.githubusercontent.com/silvandiepen/2a403fd1e86f1cee228f120096ec0689/raw/all.json"
+        )
+        .then(function(response) {
+          // handle success
+          _this.setContent(response.data);
+        })
+        .catch(function(error) {});
+    },
+    setContent(data) {
+      let _this = this;
+      Object.keys(data).forEach(function(value, key) {
+        let cheatGroup = [];
+        data[value].forEach((cheat, index) => {
+          axios
+            .get(
+              `https://gist.githubusercontent.com/silvandiepen/2a403fd1e86f1cee228f120096ec0689/raw/${cheat}.md`
+            )
+            .then(function(response) {
+              cheatGroup.push({
+                name: cheat,
+                content: response.data
+              });
+              if (index === data[value].length - 1) {
+                // console.log(cheatGroup);
+                // _this.cheatSheet[value] = cheatGroup;
+                _this.cheatSheet[value] = { ...cheatGroup };
+              }
+            });
+        });
+      });
+      return;
+      console.log(_this.cheatSheet);
+    },
+    categoryClass(cat) {
+      return `category--${cat}`;
+    }
   }
 };
 </script>
@@ -166,5 +135,34 @@ code[class*="language"] {
   color: color(White);
   padding: 1rem;
   overflow: scroll;
+}
+h3 {
+  opacity: 0.5;
+}
+.cheatsheet {
+  &__group {
+    background-color: color(Brown);
+    color: contra(Brown);
+    .container + .container {
+      border-top: 1px solid color(Black, 0.25);
+    }
+    &.css {
+      background-color: color(Blue);
+      color: contra(Blue);
+    }
+    &.javascript {
+      background-color: color(Green);
+      color: contra(Green);
+    }
+    &.misc {
+      background-color: color(Yellow);
+      color: contra(Yellow);
+    }
+  }
+  &__description{
+    @media #{$medium-up}{
+      padding-right: 4rem; 
+    }
+  }
 }
 </style>

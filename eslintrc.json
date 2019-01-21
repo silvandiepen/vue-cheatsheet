@@ -1,0 +1,20 @@
+{
+	"eslintConfig": {
+		"root": true,
+		"env": {
+			"node": true
+		},
+		"extends": ["plugin:vue/essential", "@vue/prettier"],
+		"rules": {
+			"no-console": false
+		},
+		"parserOptions": {
+			"parser": "babel-eslint"
+		}
+	},
+	"postcss": {
+		"plugins": {
+			"autoprefixer": {}
+		}
+	}
+}

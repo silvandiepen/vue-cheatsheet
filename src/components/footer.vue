@@ -44,13 +44,13 @@
           </svg>
         </div>
         <div class="column small-full medium-third">
-          <div class="content">
-            <vue-markdown :source="projects" />
+          <div class="content" v-if="projects">
+            <markdown :source="projects" />
           </div>
         </div>
         <div class="column small-full medium-third">
-          <div class="content">
-            <vue-markdown :source="packages" />
+          <div class="content" v-if="packages">
+            <markdown :source="packages" />
           </div>
         </div>
       </div>
@@ -59,12 +59,12 @@
 </template>
 
 <script>
-import VueMarkdown from "vue-markdown";
+import Markdown from "./markdown.vue";
 import axios from "axios";
 
 export default {
   components: {
-    VueMarkdown
+    Markdown
   },
   data() {
     return {
