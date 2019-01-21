@@ -160,7 +160,6 @@ export default {
               let newEl;
               if (el.data.attrs) {
                 if (tag === el.data.attrs.meta) {
-                  // console.log(meta);
                   const content = meta[tag];
                   newEl = createElement(el.tag, {
                     props: { value: content, innerHTML: content },
@@ -171,8 +170,8 @@ export default {
               newContent.push(newEl);
             });
           } else {
-						newContent.push(el);
-					}
+            newContent.push(el);
+          }
         });
       }
       _this.metaData = newContent;
