@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import Markdown from "./markdown.vue";
+import Markdown from "@sil/markdown";
 import axios from "axios";
 
 export default {

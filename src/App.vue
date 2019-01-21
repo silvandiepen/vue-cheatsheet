@@ -47,7 +47,7 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
-import Markdown from "./components/markdown.vue";
+import Markdown from "@sil/markdown";
 import Grid from "@sil/grid";
 
 import silFooter from "./components/footer.vue";
